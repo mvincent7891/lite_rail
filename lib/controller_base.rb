@@ -10,7 +10,7 @@ class ControllerBase
   # Setup the controller
   def initialize(req, res, params = {})
     @req, @res = req, res
-    @params = params
+    @params = params.merge(req.params)
   end
 
   # Helper method to alias @already_built_response
@@ -54,6 +54,11 @@ class ControllerBase
   # method exposing a `Session` object
   def session
     @session ||= Session.new(@req)
+  end
+
+  # method exposing a `Flash` object
+  def flash
+    @flash ||= Flash.new(@req)
   end
 
   # use this with the router to call action_name (:index, :show, :create...)
