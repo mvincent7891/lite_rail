@@ -19,12 +19,9 @@ class ShowExceptions
   private
 
   def render_exception(e)
-    # ['200', {'Content-Type' => 'text/html'}, ['hello world']]
-    status_code = 100.to_s
-    content_type = {'Content-Type' => 'text/html'}
-    content = ['there is an error']
-
-    [status_code, content_type, content]
+    message = "hello world"
+    # will show message when error is raised in app
+    ['200', {'Content-Type' => 'text/html'}, [message]]
   end
 
 end
