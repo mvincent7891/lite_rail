@@ -8,11 +8,15 @@ class Flash
   end
 
   def now
-    @flash_now ||= {}
+    @flash ||= {}
   end
 
   def [](key)
-    @flash[key] || @flash_now[key]
+    if @flash
+      @flash[key]
+    elsif @flash_now
+      @flash_now[key]
+    end
   end
 
   def []=(key, val)

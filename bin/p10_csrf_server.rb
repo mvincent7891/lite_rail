@@ -1,10 +1,14 @@
 require 'rack'
 require_relative '../lib/controller_base.rb'
 require_relative '../lib/router'
+require_relative '../lib/static'
+require_relative '../lib/show_exceptions'
+require_relative '../lib/flash'
+
 
 # To test out your CSRF protection, go to the new dog form and
 # make sure it works! Alter the form_authenticity_token and see that
-# your server throws an error. 
+# your server throws an error.
 
 class Dog
   attr_reader :name, :owner
@@ -48,9 +52,11 @@ class Dog
 end
 
 class DogsController < ControllerBase
+  # Comment out if form_authenticity_token will not be used in forms
   protect_from_forgery
 
   def create
+
     @dog = Dog.new(params["dog"])
     if @dog.save
       flash[:notice] = "Saved dog successfully"
@@ -86,6 +92,12 @@ app = Proc.new do |env|
   router.run(req, res)
   res.finish
 end
+
+app = Rack::Builder.new do
+  use ShowExceptions
+  use Static
+  run app
+end.to_app
 
 Rack::Server.start(
  app: app,

@@ -3,8 +3,14 @@ require 'active_support/core_ext'
 require 'erb'
 require_relative './session'
 require 'byebug'
+require_relative './flash'
 
 class ControllerBase
+
+  def self.protect_from_forgery
+    @auth_token = SecureRandom.urlsafe_base64
+  end
+
   attr_reader :req, :res, :params
 
   # Setup the controller
@@ -13,6 +19,16 @@ class ControllerBase
     @params = params.merge(req.params)
   end
 
+  def form_authenticity_token
+    self.class.instance_eval {@auth_token}
+  end
+
+  def check_authenticity_token
+    token = self.class.instance_eval {@auth_token}
+    token == @req['authenticity_token'] || !token
+  end
+
+
   # Helper method to alias @already_built_response
   def already_built_response?
     @already_built_response
@@ -20,7 +36,7 @@ class ControllerBase
 
   # Set the response status code and header
   def redirect_to(url)
-    Raise "Cannot render twice" if @already_built_response
+    raise "Cannot render twice" if @already_built_response
     @res['Location'] = url
     @res.status = 302
     session.store_session(@res)
@@ -31,7 +47,7 @@ class ControllerBase
   # Set the response's content type to the given type.
   # Raise an error if the developer tries to double render.
   def render_content(content, content_type)
-    Raise "Cannot render twice" if @already_built_response
+    raise "Cannot render twice" if @already_built_response
     @res.write(content)
     @res['Content-Type'] = content_type
     session.store_session(@res)
@@ -63,6 +79,10 @@ class ControllerBase
 
   # use this with the router to call action_name (:index, :show, :create...)
   def invoke_action(name)
+    # ADD_ACTION_HERE
+    if :create == name
+      raise "Invalid authenticity token." unless check_authenticity_token
+    end
     self.send(name)
     render(name) unless already_built_response?
   end

@@ -4,49 +4,44 @@
     <meta charset="utf-8">
     <title>Rescue Lite Rail Errors</title>
       <style>
-      .boxed {
-        border: 1px solid red ;
-        margin: 10px 4% 10px 4%;
-        padding: 10px 10px 10px 10px;
-      }
-
-      input {
-        width: 15px;
-      }
+        .boxed {
+          border: 1px solid red ;
+          margin: 10px 4% 10px 4%;
+          padding: 10px 10px 10px 10px;
+        }
+        input {
+          width: 40px;
+        }
       </style>
   </head>
   <body>
-
-
-
     <h2>There's a snake in my boot!</h2>
 
     <h3>LiteRail Error Message</h3>
-    <p style="color:red">
-      <%= @error_message %>
-    </p>
+      <p style="color:red">
+        <%= @error_message %>
+      </p>
 
     <h3>Stack Trace</h3>
-    <form action="<%= @path %>" method="get">
-      <label>Custom Stack Depth:</label>
-        <input type="text" name="stack_depth" value="<%= @stack_depth %>">
-    </form>
+      <form action="<%= @path %>" method="get">
+        <label>Custom Stack Depth:</label>
+          <input type="text" name="stack_depth" value="<%= @stack_depth %>">
+      </form>
     <div class="boxed">
       <%= @backtrace[0...@stack_depth].join('<br>') %>
     </div>
 
     <h3>Offending File</h3>
-    <p>
-      File name: <%= @file_name %><br><br>
-      Source Code:<br>
-      <div class="boxed">
-        <% @source.each_with_index do |line, i| %>
-            <%= '<b style="color:red">' if i == 3 %>
-            <%= line %><br>
-            <%= '</b>' if i == 3 %>
-        <% end %>
-      </div>
-    </p>
-
+        <p>
+          File name: <%= @file_name %><br><br>
+          Source Code:<br>
+          <div class="boxed">
+            <% @source.each_with_index do |line, i| %>
+                <%= '<b style="color:red">' if i == 3 %>
+                <%= line %><br>
+                <%= '</b>' if i == 3 %>
+            <% end %>
+          </div>
+        </p>
   </body>
 </html>

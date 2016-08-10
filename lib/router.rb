@@ -68,8 +68,7 @@ class Router
   def run(req, res)
     route = match(req)
     if route.nil?
-      res.status = 404
-      res.write("Wrong address, Mr. Presley.")
+      raise "Missing resouce. You must be thinking of <i>another</i> localhost:3000..."
     else
       route.run(req, res)
     end
