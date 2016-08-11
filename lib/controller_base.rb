@@ -59,7 +59,7 @@ class ControllerBase
   def render(template_name)
     # create template path from self.class and template_name
     snake_class = self.class.to_s.split(/(?=[A-Z])/).map(&:downcase).join('_')
-    template_path = "Views/#{snake_class}/#{template_name.to_s}.html.erb"
+    template_path = "app/views/#{snake_class}/#{template_name.to_s}.html.erb"
     # translate conetnts of view at template_path into into html object;
     # use binding to ensure that we have access to controller's instance
     # variables
