@@ -45,10 +45,10 @@ def controller(controller_name)
   controller_name_cc = ActiveSupport::Inflector.camelize(controller_name)
   model_name = ActiveSupport::Inflector.singularize(controller_name)
   controller_string = <<-RUBY
-    require_relative 'app/controllers/application_controller'
-    require_relative 'app/models/#{model_name}.rb'
+    require_relative './application_controller'
+    require_relative '../models/#{model_name}.rb'
 
-    class #{controller_name_cc} < ApplicationController
+    class #{controller_name_cc}Controller < ApplicationController
     end
   RUBY
 
