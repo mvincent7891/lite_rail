@@ -1,18 +1,24 @@
 # LiteRail README
 
 ## Overview:
-A lite version of Rails with ActiveRecord. This README assumes a certain (>= intermediate) level of familiarity with the popular Ruby on Rails web development framework.
+A lite version of Rails with a sprinkling of ActiveRecord (also lite). This README assumes a certain (>= intermediate) level of familiarity with the popular Ruby on Rails web development framework.
+
+## Requirements
+* Mac/Linux OS
+* Ruby
+* Pry
+* sqlite3
 
 ## Creating a new app with LiteRail:
 ### Creating models
-* First download or clone this directory and rename the top directory with the name of your new app
+* First download or clone this repository and rename the top level directory with the name of your new app
 * Navigate to the home directory of your app (containing app/, lib/, bin/, etc.)
 * To set up the default database, execute the following from the terminal:
 
 ```
 ruby 'app/model/db_utility.rb'
 ```
-That will set up a database with one table, "users". Check it out! Open your database with:
+That will set up a database with one table, "users". Check it out! Open the database with:
 
 ```
 sqlite3 app/default.db
@@ -88,4 +94,4 @@ pry(main)> uc.new
 
 ```
 
-Hmm... did that work? Well, we have outlite object relational mapping - let's use it! Call User.all and see if you've successfully created a new user. 
+Hmm... did that work? Well, we have our lite version of object relational mapping - let's use it! Call User.all and see if you've successfully created a new user.
