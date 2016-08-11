@@ -150,3 +150,24 @@ What happened? Well - it turns out that the server wants to direct us to the pag
 
 Last modified: August 10, 2016: 9:14 PM
 TODO: Check that the server can create and persist model instances.
+
+### Model-View-Controller Interface
+Instructions coming soon...
+
+### ActiveRecord Lite
+Instructions coming soon...
+
+### Protection from Forgery
+Instructions coming soon...
+
+### Flash and Session
+Instructions coming soon...
+
+### Static Assets
+Instructions coming soon...
+
+### The Router, Explained
+Instructions coming soon...
+
+### More on the ControllerBase
+Instructions coming soon...
