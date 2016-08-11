@@ -1,33 +1,39 @@
+# ----------------------------------------------
+# --  Database file for LiteRail project      --
+# --  Reset database using db_utility.rb      --
+# --  Created by: Michael Parlato             --
+# ----------------------------------------------
+
 require 'sqlite3'
+require 'byebug'
 
 PRINT_QUERIES = ENV['PRINT_QUERIES'] == 'true'
 # https://tomafro.net/2010/01/tip-relative-paths-with-file-expand-path
 ROOT_FOLDER = File.join(File.dirname(__FILE__), '..')
-CATS_SQL_FILE = File.join(ROOT_FOLDER, 'cats.sql')
-CATS_DB_FILE = File.join(ROOT_FOLDER, 'cats2.db')
+SQL_FILE = File.join(ROOT_FOLDER, 'default.sql')
+DB_FILE = File.join(ROOT_FOLDER, 'default.db')
 
 class DBConnection
   def self.open(db_file_name)
     @db = SQLite3::Database.new(db_file_name)
     @db.results_as_hash = true
     @db.type_translation = true
-
     @db
   end
 
   def self.reset
     commands = [
-      "rm '#{CATS_DB_FILE}'",
-      "cat '#{CATS_SQL_FILE}' | sqlite3 '#{CATS_DB_FILE}'"
+      "rm '#{DB_FILE}'",
+      "cat '#{SQL_FILE}' | sqlite3 '#{DB_FILE}'"
     ]
-
-    commands.each { |command| `#{command}` }
-    DBConnection.open(CATS_DB_FILE)
+    commands.each do |command|
+      `#{command}`
+    end
+    DBConnection.open(DB_FILE)
   end
 
   def self.instance
     reset if @db.nil?
-
     @db
   end
 
