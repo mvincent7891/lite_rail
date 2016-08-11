@@ -146,7 +146,7 @@ Now let's give it a whirl. Head to localhost:3000/users/new.
 No such file or directory @ rb_sysopen - app/views/users_controller/new.html.erb
 ```
 
-What happened? Well - it turns out that the server wants to direct us to the page /users/new.html. That's a problem, because we haven't actually created it yet. On the bright side, we've discovered something awesome - LiteRail's build in error handling - Woody. Here on the browser page you can see the error that was raised, the stack trace, and a preview of the source code that caused the glitch. You can even customize the depth of the stack trace - give it a shot. Next, we'll create a proper HTML page, update our routes, and add some users.
+What happened? Well - it turns out that the server wants to direct us to the page /users/new.html. That's a problem, because we haven't actually created it yet. On the bright side, we've discovered something awesome - LiteRail's build in error handling. Right here in the browser you can see the error that was raised, the stack trace, and a preview of the source code that caused the glitch. You can even customize the depth of the stack trace - give it a shot. Next, we'll create a proper HTML page, update our routes, and add some users.
 
 Last modified: August 10, 2016: 9:14 PM
 TODO: Check that the server can create and persist model instances.
