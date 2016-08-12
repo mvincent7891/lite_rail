@@ -125,11 +125,13 @@ require_relative 'app/controllers/application_controller.rb'
 require_relative 'app/controllers/users_controller.rb'
 ...
 ```
-Now what was it we wanted to do? Create a new user, right? Let's navigate to localhost:3000/users/new. That didn't work , did it? We haven't actually created the route /users/new yet, so LiteRail let's us know what's missing. On the bright side, we've discovered something awesome - LiteRail's built in error handling!
+Now what was it we wanted to do? Create a new user, right? Let's navigate to localhost:3000/users/new.
+
+Hm - that didn't work. We haven't actually created the route /users/new yet, so LiteRail let's us know what's missing. On the bright side, we've discovered something awesome - LiteRail's built in error handling!
 
 ### Error Handling
 
-By navigating to /users/new, the browser made a GET request to the users controller. But since that route is not yet defined, we raise an exception. Right here in the browser you can see the error message, the stack trace, and a preview of the source code that caused the glitch. You can even customize the depth of the stack trace - give it a shot. Looking at the source code, lines 70 - 71, we can see exactly what caused the error - the route was nil (not found). Let's fix that.
+By navigating to /users/new, the browser made a GET request to the users controller. But since that route is not yet defined, LiteRail raised an exception. Right here in the browser you can see the error message, the stack trace, and a preview of the source code that caused the glitch. You can even customize the depth of the stack trace - give it a shot. Looking at the source code, lines 70 - 71, we can see exactly what caused the error - the route was nil (not found). Let's fix that.
 
 To create the missing route, just uncomment the second statement in the router.draw block (server.rb). How convenient :)
 
