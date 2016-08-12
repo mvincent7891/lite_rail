@@ -152,16 +152,16 @@ No such file or directory @ rb_sysopen - app/views/users_controller/new.html.erb
 
 Wait, what happened? Well - it turns out that the router wants to direct us to the page /users/new.html. That's a problem, because we haven't actually created it yet. But, again, we get some helpful hints from LiteRail's error handler. If we were to delete the #new method from our users controller, we'd see a similarly helpful message.
 
-Enough errors - let's get something working. We need to create a new HTML file to which the #new method can redirect. In its infinite wisdom, and unbeknownst to you, LiteRail already created the app/views/users_controller folder when you generated the users controller. The views folder is where your HTML will live. Create a new file, views/users_controller/new.html.erb, and paste in the following:
+Enough errors - let's get something working. We need to create a new HTML file which the #new method can render upon request. In its infinite wisdom, and unbeknownst to you, LiteRail already created the app/views/users_controller/ folder when you generated the users controller. This views folder is where your users HTML will live. Create a new file, views/users_controller/new.html.erb, and paste the following:
 
 ```HTML
 <form class="" action="users" method="post">
   <label>Name:
-    <input type="text" name="user[name]" value="@user.name">
+    <input type="text" name="user[name]" value="">
   </label>
 
   <label>Age:
-    <input type="text" name="user[age]" value="@user.age">
+    <input type="text" name="user[age]" value="">
   </label>
 
   <input type="submit" value="Create User">
