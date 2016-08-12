@@ -59,5 +59,7 @@ def controller(controller_name)
     f.close
   end
 
+  system 'mkdir', '-p', "app/views/#{controller_name}_controller"
+
 
 end

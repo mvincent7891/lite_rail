@@ -68,7 +68,7 @@ class Router
   def run(req, res)
     route = match(req)
     if route.nil?
-      raise "Missing resouce. You must be thinking of <i>another</i> localhost:3000..."
+      raise "This is <i>not</i> the route you're looking for... Missing route for method #{req.request_method} at path #{req.path}."
     else
       route.run(req, res)
     end

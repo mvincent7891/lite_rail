@@ -83,7 +83,11 @@ class ControllerBase
     if :create == name
       raise "Invalid authenticity token." unless check_authenticity_token
     end
-    self.send(name)
+    begin
+      self.send(name)
+    rescue
+      raise "Not so fast, my friend... Undefined method <i>\##{name}</i> for #{self.class}."
+    end
     render(name) unless already_built_response?
   end
 end
