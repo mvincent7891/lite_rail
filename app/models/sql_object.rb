@@ -1,5 +1,6 @@
 require_relative 'db_connection'
 require 'active_support/inflector'
+# require_relative 'associatable'
 require 'byebug'
 
 # NB: the attr_accessor we wrote in phase 0 is NOT used in the rest

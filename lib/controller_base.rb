@@ -85,7 +85,7 @@ class ControllerBase
     end
     begin
       self.send(name)
-    rescue
+    rescue 
       raise "Not so fast, my friend... Undefined method <i>\##{name}</i> for #{self.class}."
     end
     render(name) unless already_built_response?

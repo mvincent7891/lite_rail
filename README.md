@@ -17,7 +17,7 @@ A lite version of Rails with a sprinkling of ActiveRecord (also lite). This READ
 * To set up the default database, execute the following from the terminal:
 
 ```
-ruby 'app/model/db_utility.rb'
+ruby 'app/models/db_utility.rb' -e 'reset'
 ```
 That will set up a database with one table, "users". Check it out! Open the database with:
 

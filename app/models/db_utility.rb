@@ -6,4 +6,7 @@
 # ----------------------------------------------
 require_relative 'db_connection'
 
-DBConnection.reset
+
+def reset
+  DBConnection.reset
+end
