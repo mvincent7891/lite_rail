@@ -7,14 +7,15 @@ require_relative 'lib/flash'
 
 # require controllers here
 require_relative 'app/controllers/application_controller.rb'
+require_relative 'app/controllers/users_controller.rb'
 
 
 router = Router.new
 router.draw do
   get Regexp.new("^/index$"), ApplicationController, :index
-  # get Regexp.new("^/users/new$"), UsersController, :new
-  # post Regexp.new("^/users$"), UsersController, :create
-  # get Regexp.new("^/users$"), UsersController, :index
+  get Regexp.new("^/users/new$"), UsersController, :new
+  post Regexp.new("^/users$"), UsersController, :create
+  get Regexp.new("^/users$"), UsersController, :index
 end
 
 app = Proc.new do |env|
