@@ -182,7 +182,7 @@ Instructions coming soon...
 
 ### ActiveRecord Lite
 #### Searchable
-You can query the database with chainable `#where` statements. For instance, if you wish to find all users with the name 'Matt', simply user the following:
+You can query the database with chainable `#where` statements. For instance, if you wish to find all users with the name 'Matt', simply use the following:
 
 ```RUBY
 User.where(name: 'Matt')
@@ -202,7 +202,7 @@ User.where(name: 'Matt').where(id: 3).to_a
 
 The above demonstrates that `#where` statements are chainable within LiteRail. The `#to_a` method will return an actual `user` object (or objects) instead of the relation object.
 
-### Associatable
+#### Associatable
 Coming soon...
 
 ### Flash and Session
