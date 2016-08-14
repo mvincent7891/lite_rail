@@ -19,7 +19,7 @@ A lite version of Rails with a sprinkling of ActiveRecord (also lite), built fro
 ```
 ruby 'app/models/db_utility.rb' -e 'reset'
 ```
-That will set up a database with one table, `users`. Check it out! Open the database with:
+That will set up a database with one table, `users`. Check it out - using SQLite3, open the database from terminal with:
 
 ```
 sqlite3 app/default.db
@@ -30,8 +30,7 @@ and check out the tables with:
 .tables
 ```
 
-To change the default database `schema` and `seed data`, edit your 'app/default.sql'. Every time you run the `db_utility`, the database will be reset with the seed data in that file. To establish a connection to the database
-within a ruby file, simply:
+To change the default database `schema` and `seed data`, edit your 'app/default.sql'. Every time you run the `db_utility`, the database will be reset with the seed data in that file. To establish a connection to the database within a ruby file, simply:
 
 ```
 require 'app/model/db_connection.rb'
@@ -41,12 +40,12 @@ Let's add some new tables to the database. Run the following command from termin
 ```
 ruby -r "./generate.rb" -e "model 'model_name'"
 ```
-For instance, if you wish to create a new `comment` model with an associated `comments` table in the database, then your model_name would be `comment`. Now, let's say we want to create a table with a column or two in it. Simply tack on each addition column (along with its type and constraints!) in an array as the second parameter to `#model`:
+For instance, if you wish to create a new `comment` model with an associated `comments` table in the database, then your model_name would be `comment`. Now, let's say we want to create a table with a column or two in it. Simply tack on each addition column (along with its type and constraints) in an array as the second parameter to `#model`:
 
 ```
 ruby -r "./generate.rb" -e "model('comment',['user_id INTEGER NOT NULL'])"
 ```
-The above will create a new model file, `comment.rb` as well as a table called `comments` with both primary `id` and `user_id` columns, where the `user_id` is an integer that must be set at initialization.
+The above will create a new model file, `comment.rb` as well as a table called `comments` with both primary `id` and `user_id` columns, where the `user_id` is an integer that must be set before saving.
 
 ### Creating controllers
 There should already be a users model within the models folder, but it looks like we're missing the associated controller. Let's fix that. Pop back over to terminal and execute the following:
@@ -61,12 +60,12 @@ require_relative 'app/controllers/application_controller'
 require_relative 'app/models/user.rb'
 ...
 ```
-If you need to access other models, just use associations (NB: `associatable` and `searchable` modules not yet connected to model base) or require them.
+If you need to access other models, just use associations (NB: `associatable` and `searchable` modules not yet connected to model base).
 
 ### Controller-Model Interface
 
 Now let's see how the controller and model interact with each other. We're going to create a new user from within our controller.
-* Open up your new controller model and override the `#initialize` method by writing a blank method (we'll need a server in the future when we initialize).
+* Open up your new controller model and override the `#initialize` method by writing a blank method (we'll need a server in the future before when we can initialize properly).
 * OK - now write a `#new` method.
 * This method should instantiate a new user with a name and age, then save the user.
 
@@ -172,7 +171,7 @@ Enough errors - let's get something working. We need to create a new `HTML` file
 Save your work, navigate back to `localhost:3000/users/new`, and you should see the newly created form. Excellent! Next, we'll create a proper `HTML` page, update our routes, and add some users.
 
 Last modified: August 12
-TODO: Re-write #create, #index and #new in users controller, update routes, create users. 
+TODO: Re-write #create, #index and #new in users controller, update routes, create users.
 
 ### The Model-View-Controller Interface
 Instructions coming soon...

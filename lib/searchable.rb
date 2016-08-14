@@ -1,4 +1,3 @@
-require_relative 'db_connection'
 require 'byebug'
 
 module Searchable
@@ -74,8 +73,8 @@ class Relation
   def to_a
     results = DBConnection.execute(def_query, *@params.values)
     return [] if results.empty?
-    byebug
-    results.map { |obj| @klass.new(obj) }
+    # results.map { |obj| obj.klass.new(obj) }
+    results
   end
 
 end
@@ -83,9 +82,4 @@ end
 class SQLObject
   # Mixin Searchable here...
   extend Searchable
-end
-
-
-class Cat < SQLObject
-  finalize!
 end
