@@ -172,7 +172,7 @@ Enough errors - let's get something working. We need to create a new `HTML` file
 Save your work, navigate back to `localhost:3000/users/new`, and you should see the newly created form. Excellent! Next, we'll create a proper `HTML` page, update our routes, and add some users.
 
 Last modified: August 12
-TODO: Re-write #create, #index and #new in users controller, update routes, create users. 
+TODO: Re-write #create, #index and #new in users controller, update routes, create users.
 
 ### The Model-View-Controller Interface
 Instructions coming soon...
@@ -181,7 +181,29 @@ Instructions coming soon...
 Instructions coming soon...
 
 ### ActiveRecord Lite
-Instructions coming soon...
+#### Searchable
+You can query the database with chainable `#where` statements. For instance, if you wish to find all users with the name 'Matt', simply user the following:
+
+```RUBY
+User.where(name: 'Matt')
+```
+
+This will return a relation object with an `@query` instance variable that defines the SQL query. What if we want to use multiple parameters to find a specific user? There are two ways to accomplish this:
+
+```RUBY
+
+User.where(name: 'Matt', id: 3).to_a
+
+# ...or...
+
+User.where(name: 'Matt').where(id: 3).to_a
+
+```
+
+The above demonstrates that `#where` statements are chainable within LiteRail. The `#to_a` method will return an actual `user` object (or objects) instead of the relation object.
+
+### Associatable
+Coming soon...
 
 ### Flash and Session
 Instructions coming soon...
