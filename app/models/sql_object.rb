@@ -1,7 +1,6 @@
 require_relative './db_connection'
 require 'active_support/inflector'
 
-require 'byebug'
 
 # NB: the attr_accessor we wrote in phase 0 is NOT used in the rest
 # of this project. It was only a warm up.
@@ -269,6 +268,13 @@ class Relation
       WHERE
         #{where_line}
     SQL
+  end
+
+  def first
+    results = DBConnection.execute(def_query, *@params.values)
+    return [] if results.empty?
+    # results.map { |obj| obj.klass.new(obj) }
+    @klass.parse_all(results)[0]
   end
 
   def to_a

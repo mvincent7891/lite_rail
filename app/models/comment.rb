@@ -1,8 +1,8 @@
 require_relative 'sql_object'
-require_relative 'comment'
+require_relative 'user'
 
-class User < SQLObject
+class Comment < SQLObject
   # do not remove finalize - this sets column accessors
   finalize!
-  has_many :comments
+  belongs_to :user
 end

@@ -17,7 +17,7 @@ A lite version of Rails with a sprinkling of ActiveRecord (also lite), built fro
 * To set up the default database, execute the following from the terminal:
 
 ```
-ruby 'app/models/db_utility.rb' -e 'reset'
+ruby 'app/models/db_utility.rb'
 ```
 That will set up a database with one table, `users`. Check it out - using SQLite3, open the database from terminal with:
 
@@ -179,8 +179,95 @@ Instructions coming soon...
 ### Protection from Forgery
 Instructions coming soon...
 
-### ActiveRecord Lite
-Instructions coming soon...
+#### Searchable
+You can query the database with chainable `#where` statements. For instance, if you wish to find all users with the name 'Matt', simply use the following:
+
+```RUBY
+User.where(name: 'Matt')
+```
+
+This will return a relation object with an `@query` instance variable that defines the SQL query. What if we want to use multiple parameters to find a specific user? There are two ways to accomplish this:
+
+```RUBY
+
+User.where(name: 'Matt', id: 3).to_a
+
+# ...or...
+
+User.where(name: 'Matt').where(id: 3).to_a
+
+```
+
+The above demonstrates that `#where` statements are chainable within LiteRail. The `#to_a` method will return an actual `user` object (or objects) instead of the relation object.
+
+#### Associatable
+Just like in Rails, LiteRail makes it easy to associate models with each other via associations. To start, create a new `post` model from terminal with user_id and body columns:
+
+```
+ruby -r "./generate.rb" -e "model('post',
+['user_id INTEGER NOT NULL', 'body TEXT'])"
+```
+
+You can prove that this worked by opening the database and checking the table, or we can just seed the database, run the utility, and check that our seeds exist in pry. To seed the database, copy and paste the following in your `default.sql`:
+
+```RUBY
+INSERT INTO
+  posts (id, user_id, body)
+VALUES
+  (1, 1, "My first post!");
+```
+
+NB: We could have also created a post by loading `post.rb` in pry and creating it manually.
+
+Above your entry, you should see the posts table that was automatically added when you created the model from terminal. Note that the following example will not work if you have deleted your user with an ID of 1. In that case, just change the `user_id` in the above code to one that exists.
+
+Next, we need to rerun the database utility to add the post. Remember how to do that?
+
+```
+ruby 'app/models/db_utility.rb'
+```
+
+Now, in terminal, open up pry. Let's run the following to see our new post:
+
+```
+pry(main)> load 'app/models/post.rb'
+=> true
+pry(main)> Post.all
+=> [#<Post:0x007fc5f6358a68 @attributes={:id=>1, :user_id=>1, :body=>"My first post!"}>]
+```
+
+To associate the models with each other, head to the  `post.rb` and `user.rb` files and require each of them in the other. In each file, just write the desired association:
+
+```RUBY
+# in /post.rb...
+...
+belongs_to :user
+...
+
+# in /user.rb...
+...
+has_many :posts
+...
+```
+We can check if it worked in pry. Load `user.rb` (You may need to exit and reopen pry first). Did it work?
+
+```
+pry(main)> load 'app/models/user.rb'
+=> true
+[14] pry(main)> User.all.to_a[0].posts
+=> #<Relation:0x007fc5f360fef8
+ @klass=Post,
+ @params={:user_id=>1},
+ @query="      SELECT\n        *\n      FROM\n        posts\n      WHERE\n        user_id = ?\n",
+ @table="posts",
+ @values=[1]>
+pry(main)> User.all.to_a[0].posts.first
+=> #<Post:0x007fc5f36a6740 @attributes={:id=>1, :user_id=>1, :body=>"My first post!"}>
+```
+
+The third command uses `#first` to make the result look a little prettier and bring it out of relation syntax. Now make sure you can check a post's associated user. 
+
+
 
 ### Flash and Session
 Instructions coming soon...
